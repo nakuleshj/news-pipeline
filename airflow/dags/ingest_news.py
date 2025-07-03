@@ -12,15 +12,18 @@ from minio import Minio, S3Error
 load_dotenv()
 
 
-NEWS_API_ENDPOINT = "https://newsapi.org/v2/everything"
+NEWS_API_ENDPOINT = "https://newsapi.org/v2/top-headlines"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
 
 FETCH_INTERVAL_HOURS = 12
 
 MINIO_CLIENT= Minio(
     endpoint="minio:9000",
-    access_key="minioadmin",
-    secret_key="admin123",
+    access_key=MINIO_ACCESS_KEY,
+    secret_key=MINIO_SECRET_KEY,
     secure=False,
 )
 
@@ -32,9 +35,8 @@ if not MINIO_CLIENT.bucket_exists(BUCKET):
 def fetch_news():
     params = {
         "apiKey": NEWS_API_KEY,
-        "from": datetime.now() - timedelta(hours=FETCH_INTERVAL_HOURS),
-        "to": datetime.now(),
         "sortBy": "publishedAt",
+        "pageSize": 100
     }
     try:
         response = requests.get(NEWS_API_ENDPOINT, params=params)
