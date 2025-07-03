@@ -1,4 +1,4 @@
-# Real-Time News NLP Pipeline on AWS
+# News NLP Pipeline on AWS
 
 ## Architecture
 ![alt text](https://github.com/nakuleshj/news-pipeline/blob/main/news-pipeline%20(2).png)
