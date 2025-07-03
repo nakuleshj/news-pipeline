@@ -3,7 +3,7 @@ version: '3.9'
 services:
   minio:
     image: minio/minio
-    container_name: macrolake-minio
+    container_name: news-minio
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: admin123
@@ -65,7 +65,7 @@ services:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
       AIRFLOW__WEBSERVER__SECRET_KEY: "I2CbLa8F4s0A3mSYRngKeVhTZoPutZBNCXnHTS8ZoT0"
     volumes:
-      - ./dags:/opt/airflow/dags
+      - ./airflow/dags:/opt/airflow/dags
       - ./requirements.txt:/requirements.txt
     command: scheduler
 
